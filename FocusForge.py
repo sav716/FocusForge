@@ -86,11 +86,11 @@ def pomo_timer():
         pomos_elapsed += 1
         root.attributes('-fullscreen', True)
         if pomos_elapsed == num_pomos:
-          no_internet_label.configure(text="It's breaktime, go read a book!")
+          no_internet_label.configure(text='Go read a book!')
           current = 'lbreak'
           root.after(1000, pomo, long_break_length)
         else:
-          no_internet_label.configure(text="It's breaktime, go read a book, or take a walk!")
+          no_internet_label.configure(text='Go read a book, or take a walk!')
           current = 'sbreak'
           root.after(1000, pomo, short_break_length)
 
@@ -111,7 +111,8 @@ def pomo_timer():
   pomo(pomo_length)
 
 def block(site):
-  blocked_sites.append(site)
+  if site not in blocked_sites:
+    blocked_sites.append(site)
   with open(hosts_path, 'r+') as file:
     content = file.read()
     for website in blocked_sites:
