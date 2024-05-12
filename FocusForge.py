@@ -17,10 +17,10 @@ timer_frame.grid(row=0, column=0, sticky="news")
 timer_frame.rowconfigure((0,1), weight=1)
 timer_frame.columnconfigure((0,1,2), weight=1)
 
-minute_label = ttk.Label(timer_frame)
-colon_label = ttk.Label(timer_frame, text=":")
-second_label = ttk.Label(timer_frame)
-no_internet_label = ttk.Label(timer_frame)
+minute_label = ttk.Label(timer_frame, justify='center')
+colon_label = ttk.Label(timer_frame, text=":", justify='center')
+second_label = ttk.Label(timer_frame, justify='center')
+no_internet_label = ttk.Label(timer_frame, justify='center', font=("Arial", 40))
 start_button = ttk.Button(timer_frame, text="Start Pomodoro", 
                           command=lambda: pomo_timer())
 
@@ -89,19 +89,28 @@ def pomo_timer():
         if pomos_elapsed == num_pomos:
           no_internet_label.configure(text='Go read a book, or take a walk!')
           current = 'lbreak'
+          minute_label.configure(text=str(long_break_length)) 
+          second_label.configure(text="0")
           root.after(1000, pomo, long_break_length)
         else:
           no_internet_label.configure(text='Go read a book!')
           current = 'sbreak'
+          minute_label.configure(text=str(short_break_length)) 
+          second_label.configure(text="0")
           root.after(1000, pomo, short_break_length)
 
       elif current == 'sbreak':
         current = 'work'
+        root.attributes('-fullscreen', False)
+        no_internet_label.configure(text='')
+        minute_label.configure(text=str(pomo_length)) 
+        second_label.configure(text="0")
         root.after(1000, pomo, pomo_length)
         
       else:
         minute_label.configure(text="") 
         second_label.configure(text="")
+        no_internet_label.configure(text="")
         start_button.grid()
         root.attributes('-fullscreen', False)
         
