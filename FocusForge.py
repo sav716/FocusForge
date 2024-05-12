@@ -86,11 +86,11 @@ def pomo_timer():
         pomos_elapsed += 1
         root.attributes('-fullscreen', True)
         if pomos_elapsed == num_pomos:
-          no_internet_label.configure(text='Go read a book!')
+          no_internet_label.configure(text='Go read a book, or take a walk!')
           current = 'lbreak'
           root.after(1000, pomo, long_break_length)
         else:
-          no_internet_label.configure(text='Go read a book, or take a walk!')
+          no_internet_label.configure(text='Go read a book!')
           current = 'sbreak'
           root.after(1000, pomo, short_break_length)
 
