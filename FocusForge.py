@@ -7,6 +7,7 @@ blocked_sites = []
 root = tk.Tk()
 root.title("Focus Forge")
 root.resizable(True, True)
+root.attributes("-topmost", True)
 
 root.rowconfigure(0, weight=1)
 root.columnconfigure(0, weight=1)
