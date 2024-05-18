@@ -17,9 +17,9 @@ timer_frame.grid(row=0, column=0, sticky="news")
 timer_frame.rowconfigure((0,1), weight=1)
 timer_frame.columnconfigure((0,1,2), weight=1)
 
-minute_label = ttk.Label(timer_frame, justify='center')
-colon_label = ttk.Label(timer_frame, text=":", justify='center')
-second_label = ttk.Label(timer_frame, justify='center')
+minute_label = ttk.Label(timer_frame, justify='center', font=("Arial", 16))
+colon_label = ttk.Label(timer_frame, text=":", justify='center', font=("Arial", 16))
+second_label = ttk.Label(timer_frame, justify='center', font=("Arial", 16))
 no_internet_label = ttk.Label(timer_frame, justify='center', font=("Arial", 40))
 start_button = ttk.Button(timer_frame, text="Start Pomodoro", 
                           command=lambda: pomo_timer())
@@ -64,8 +64,8 @@ def pomo_timer():
   time_elapsed = 0
   pomos_elapsed = 0
   num_pomos = 4
-  pomo_length = 25
-  short_break_length = 5
+  pomo_length = 1
+  short_break_length = 1
   long_break_length = 30
   current = 'work' # can be work, sbreak, or lbreak    
   def pomo(length):
@@ -89,22 +89,25 @@ def pomo_timer():
         if pomos_elapsed == num_pomos:
           no_internet_label.configure(text='Go read a book, or take a walk!')
           current = 'lbreak'
-          minute_label.configure(text=str(long_break_length)) 
-          second_label.configure(text="0")
+          minute_label.configure(text=str(long_break_length), font=("Arial", 54)) 
+          second_label.configure(text="0", font=("Arial", 54))
+          colon_label.configure(font=("Arial", 54))
           root.after(1000, pomo, long_break_length)
         else:
           no_internet_label.configure(text='Go read a book!')
           current = 'sbreak'
-          minute_label.configure(text=str(short_break_length)) 
-          second_label.configure(text="0")
+          minute_label.configure(text=str(short_break_length), font=("Arial", 54)) 
+          second_label.configure(text="0", font=("Arial", 54))
+          colon_label.configure(font=("Arial", 54))
           root.after(1000, pomo, short_break_length)
 
       elif current == 'sbreak':
         current = 'work'
         root.attributes('-fullscreen', False)
         no_internet_label.configure(text='')
-        minute_label.configure(text=str(pomo_length)) 
-        second_label.configure(text="0")
+        minute_label.configure(text=str(pomo_length), font=("Arial", 16))
+        colon_label.configure(font=("Arial", 16))
+        second_label.configure(text="0", font=("Arial", 16))
         root.after(1000, pomo, pomo_length)
         
       else:
